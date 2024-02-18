@@ -19,3 +19,4 @@
 # _import_submodules(__name__)  
 from .artist import Artist
 from .base import Base
+from .song import Song
