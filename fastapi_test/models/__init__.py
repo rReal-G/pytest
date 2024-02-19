@@ -20,3 +20,4 @@
 from .artist import Artist
 from .base import Base
 from .song import Song
+from .playlist import Playlist

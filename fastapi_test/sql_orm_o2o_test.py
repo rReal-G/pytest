@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models.song import Song, Song_Pydantic
 from sqlalchemy.orm.session import Session
-import db_repository as repo
+import repository.db_repository as repo
 from models.artist import Artist, Artist_Pydantic
 
 
@@ -24,7 +24,7 @@ def get_db():
 def one_to_many_crud(get_db):
     artist = Artist(name='topg', age=69)
     with get_db() as session:
-
+        session:Session
         # song = Song(name='soname')
         # artist.owned_songs.append(song)
         # new_artist = repo.create(session, artist)
@@ -34,8 +34,8 @@ def one_to_many_crud(get_db):
         # artist = repo.read_by_id(session, 1, Artist)
         # repo.delete(session, artist)
 
-        song = repo.read_by_id(session, 4, Song)
-        repo.delete(session, song)
+        # song = repo.read_by_id(session, 4, Song)
+        # repo.delete(session, song)
 
         # #artist = repo.read_by_id(session, 4, Artist)
         # song = repo.read_by_id(session, 4, Song)

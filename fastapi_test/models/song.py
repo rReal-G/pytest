@@ -5,6 +5,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 
 
+from models import playlist
 from models import artist
 from .base import Base
 
@@ -26,8 +27,12 @@ class Song(Base):
     name:Mapped[str] = mapped_column(String(10))
 
     artist_id: Mapped[int | None] = mapped_column(ForeignKey('Artists.id'), nullable=True)
-
     og_artist:Mapped['artist.Artist'] = relationship(back_populates='owned_songs')
+
+    related_playlists:Mapped[list['playlist.Playlist']] = relationship(
+        back_populates='related_songs',
+        secondary = playlist.playlist_song
+    )
 
 
 

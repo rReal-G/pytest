@@ -1,13 +1,10 @@
 
 from typing import Annotated, List
+import uuid
 from pydantic import BaseModel, Field
-from sqlalchemy import CheckConstraint, String
+from sqlalchemy import CheckConstraint, Column, Date, ForeignKey, String, Table
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-
-#from .song import Song_Pydantic
-
-
-
+from datetime import date
 from .base import Base
 
 from models import song
