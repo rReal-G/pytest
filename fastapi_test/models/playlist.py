@@ -21,7 +21,7 @@ playlist_song = Table(
 
 class Playlist(Base):
     __tablename__= 'Playlists'
-    id: Mapped[str] = mapped_column(primary_key=True, default=uuid.uuid4)
+    id: Mapped[str] = mapped_column(primary_key=True, default=str(uuid.uuid4()))
     name: Mapped[str] = mapped_column(String(10))
     created_date: Mapped[date] = mapped_column(default=date.today())
 
