@@ -32,7 +32,7 @@ class Artist(Base):
     name: Mapped[str] = mapped_column(String(10))
     age: Mapped[int] = mapped_column()
 
-    owned_songs:Mapped[List['song.Song']] = relationship()
+    owned_songs:Mapped[List['song.Song']] = relationship(cascade='all, delete, delete-orphan')
 
 
         

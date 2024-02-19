@@ -25,7 +25,7 @@ class Song(Base):
     id:Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     name:Mapped[str] = mapped_column(String(10))
 
-    artist_id: Mapped[int] = mapped_column(ForeignKey('Artists.id'))
+    artist_id: Mapped[int | None] = mapped_column(ForeignKey('Artists.id'), nullable=True)
 
     og_artist:Mapped['artist.Artist'] = relationship(back_populates='owned_songs')
 

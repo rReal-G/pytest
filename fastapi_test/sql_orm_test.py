@@ -1,10 +1,13 @@
+from contextlib import contextmanager
 import json
 from pydantic import BaseModel, ValidationError
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models.song import Song, Song_Pydantic
-
+from sqlalchemy.orm.session import Session
+import db_repository as repo
 from models.artist import Artist, Artist_Pydantic
+
 
 engine = create_engine(
     "sqlite:///database.db",
@@ -12,24 +15,33 @@ engine = create_engine(
 
 session_maker = sessionmaker(engine)
 
-with session_maker() as session:
-    #artist = Artist(name='topG', age=99)
-    try:
-        pydantic_input = Artist_Pydantic(name='to55phe', age=99)
-    except ValidationError as v:
-        print(v)
-        print('hehe validation error')
-    else:
-        artist = Artist(name=pydantic_input.name, age=pydantic_input.age)
-        song = Song(name='lala5532 song')
-        artist.owned_songs.append(song)
-        #song.og_artist = artist
-        session.add(artist)
-        print(artist in session)
-        print(song in session)
+@contextmanager
+def get_db():
+    with session_maker() as session:
+        yield session  
 
-        session.commit()
-        #session.refresh(artist)
-        artist_pydantic = Artist_Pydantic.model_validate(artist, 
-                                                        from_attributes=True)
-        print(artist_pydantic.model_dump_json())
+
+def one_to_many_crud(get_db):
+    artist = Artist(name='topg', age=69)
+    with get_db() as session:
+
+        # song = Song(name='soname')
+        # artist.owned_songs.append(song)
+        # new_artist = repo.create(session, artist)
+        # pydantic_artist = Artist_Pydantic.model_validate(new_artist, from_attributes=True)
+        # print(pydantic_artist.model_dump_json())
+
+        # artist = repo.read_by_id(session, 1, Artist)
+        # repo.delete(session, artist)
+
+        song = repo.read_by_id(session, 4, Song)
+        repo.delete(session, song)
+
+        # #artist = repo.read_by_id(session, 4, Artist)
+        # song = repo.read_by_id(session, 4, Song)
+        # song.og_artist = None 
+        # session.commit()
+
+one_to_many_crud(get_db)
+
+

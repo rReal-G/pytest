@@ -1,8 +1,8 @@
-"""v1
+"""foregin key null
 
-Revision ID: 16a668bd66da
+Revision ID: f3e8955f6829
 Revises: 
-Create Date: 2024-02-19 05:07:34.535213
+Create Date: 2024-02-19 15:21:44.101706
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '16a668bd66da'
+revision: str = 'f3e8955f6829'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -29,7 +29,7 @@ def upgrade() -> None:
     op.create_table('Songs',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('name', sa.String(length=10), nullable=False),
-    sa.Column('artist_id', sa.Integer(), nullable=False),
+    sa.Column('artist_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['artist_id'], ['Artists.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
